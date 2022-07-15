@@ -8,7 +8,8 @@ const computerPlay = () => {
     } else if (randomNumber > 20) {
         return 'Scissors';
     } else {
-        return 'Something\'s wrong';
+        // return 'Something\'s wrong';
+        console.log('Something\'s wrong');
     };
 
 };
@@ -30,7 +31,7 @@ const playRound  = (playerSelection, computerSelection) => {
     if (player === 'rock') {
         switch (computer) {
             case 'rock':
-                result = 'No one wins this round.';
+                result = 'A Tie! No one wins this round.';
                 break;
             case 'paper':
                 result = 'Paper beats rock. Computer wins!';
@@ -48,7 +49,7 @@ const playRound  = (playerSelection, computerSelection) => {
                 playerScore++;
                 break;
             case 'paper':
-                result = 'No one wins this round.';
+                result = 'A Tie! No one wins this round.';
                 break;
             case 'scissors':
                 result = 'Scissors beat paper. Computer wins!';
@@ -67,17 +68,23 @@ const playRound  = (playerSelection, computerSelection) => {
                 playerScore++;
                 break;
             case 'scissors':
-                result = 'No one wins this round.';
+                result = 'A Tie! No one wins this round.';
                 break;
         };
     } else {
         return 'Error. Check for spelling mistakes and refresh.';
     };
 
-    let message = `Your selected ${playerSelection} and computer selected ${computerSelection}. The results: ${result}`
+    // let message = `Your selected ${playerSelection} and computer selected ${computerSelection}. The results: ${result}`
+    let messagePlayerSelection = `You selected: ${playerSelection}`;
+    let messageComputerSelection = `Computer selected: ${computerSelection}`;
+    let messageRoundResult = `The results: ${result}`;
 
     return {
-        message: message,
+        // message: message,
+        messagePlayerSelection: messagePlayerSelection,
+        messageComputerSelection: messageComputerSelection,
+        messageRoundResult: messageRoundResult,
         playerScore: playerScore,
         computerScore: computerScore,
     };
@@ -97,6 +104,7 @@ const game = () => {
 
         // console.log(playRoundResults);
 
+        // In case of spelling error:
        if (playRoundResults.playerScore === undefined) {
         console.log(playRoundResults);
         return;
@@ -105,14 +113,19 @@ const game = () => {
         playerTotalScore += playRoundResults.playerScore;
         computerTotalScore += playRoundResults.computerScore;
 
-        console.log(playRoundResults.message)
+        console.log(playRoundResults.messagePlayerSelection)
+        console.log(playRoundResults.messageComputerSelection)
+        console.log(playRoundResults.messageRoundResult)
     }
 
     const winner = playerTotalScore>computerTotalScore? 'You!' : 'Computer!';
+    const tie = playerTotalScore===computerTotalScore? true : false;
 
-    let finalScoresMessage = `Player total score: ${playerTotalScore}, Computer total score: ${computerTotalScore}. The winner is ${winner}`
+    let finalScoresMessage = `Player total score: ${playerTotalScore}, Computer total score: ${computerTotalScore}.`;
+    let finalWinner = ` The winner is ${winner}`
     
     console.log(finalScoresMessage);
+    tie? console.log('It\'s a Tie!') : console.log(finalWinner);
 };
 
 game();
