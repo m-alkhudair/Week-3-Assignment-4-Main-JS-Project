@@ -8,7 +8,6 @@ const computerPlay = () => {
     } else if (randomNumber > 20) {
         return 'Scissors';
     } else {
-        // return 'Something\'s wrong';
         console.log('Something\'s wrong');
     };
 
@@ -75,13 +74,11 @@ const playRound  = (playerSelection, computerSelection) => {
         return 'Error. Check for spelling mistakes and refresh.';
     };
 
-    // let message = `Your selected ${playerSelection} and computer selected ${computerSelection}. The results: ${result}`
     let messagePlayerSelection = `You selected: ${playerSelection}`;
     let messageComputerSelection = `Computer selected: ${computerSelection}`;
     let messageRoundResult = `The results: ${result}`;
 
     return {
-        // message: message,
         messagePlayerSelection: messagePlayerSelection,
         messageComputerSelection: messageComputerSelection,
         messageRoundResult: messageRoundResult,
@@ -101,8 +98,6 @@ const game = () => {
         const computerSelection = computerPlay();
 
         const playRoundResults = playRound(playerSelection, computerSelection);
-
-        // console.log(playRoundResults);
 
         // In case of spelling error:
        if (playRoundResults.playerScore === undefined) {
