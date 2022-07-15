@@ -99,7 +99,7 @@ const game = () => {
 
         const playRoundResults = playRound(playerSelection, computerSelection);
 
-        // In case of spelling error:
+        // In case of spelling mistake, it will return the error message and stop the program:
        if (playRoundResults.playerScore === undefined) {
         console.log(playRoundResults);
         return;
