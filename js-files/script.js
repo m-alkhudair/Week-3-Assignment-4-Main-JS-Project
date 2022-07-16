@@ -102,7 +102,10 @@ const game = () => {
         // In case of spelling mistake, it will log the error message and stop the program:
        if (playRoundResults.playerScore === undefined) {
         console.log(playRoundResults);
-        return;
+        // return;
+        alert('Please check your spelling and play again!')
+        game();
+        return
        }
         
         playerTotalScore += playRoundResults.playerScore;
