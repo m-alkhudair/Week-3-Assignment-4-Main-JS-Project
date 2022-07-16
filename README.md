@@ -4,4 +4,4 @@
 You can find the website here: https://m-alkhudair.github.io/Week-3-Assignment-4-Main-JS-Project/index.html
 
 ## About this project:
-This is a rock-paper-scissors game that can be played on the console. This simple game is built entirely through JavaScript and an empty HTML file.
+This is a rock-paper-scissors game that can be played on the console. This simple game is built entirely by JavaScript and an empty HTML file.
