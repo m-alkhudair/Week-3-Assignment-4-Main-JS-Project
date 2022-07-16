@@ -111,6 +111,7 @@ const game = () => {
         console.log(playRoundResults.messagePlayerSelection)
         console.log(playRoundResults.messageComputerSelection)
         console.log(playRoundResults.messageRoundResult)
+        console.log('---------------------');
     }
 
     const winner = playerTotalScore>computerTotalScore? 'You!' : 'Computer!';
