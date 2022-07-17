@@ -13,8 +13,8 @@ const computerPlay = () => {
 
 };
 
-const humanPlayerInput = () => {
-    input = prompt('Enter your selection!').trim();
+const humanPlayerInput = (counter) => {
+    input = prompt(`Round ${counter}: Enter your selection!`).trim();
 
     return input;
 };
@@ -71,7 +71,10 @@ const playRound  = (playerSelection, computerSelection) => {
                 break;
         };
     } else {
-        return 'Error. Check for spelling mistakes and refresh.';
+        playerSelection = prompt('Attention! Please check spelling and try again!').trim()
+        if (playerSelection != undefined) {
+            playRound(playerSelection, computerSelection);
+        };
     };
 
     let messagePlayerSelection = `You selected: ${playerSelection}`;
@@ -92,21 +95,14 @@ const playRound  = (playerSelection, computerSelection) => {
 const game = () => {
     let playerTotalScore = 0;
     let computerTotalScore = 0;
+    let roundCounter = 0;
 
     for (let i = 0 ; i < 5 ; i++) {
-        const playerSelection = humanPlayerInput();
+        roundCounter++
+        const playerSelection = humanPlayerInput(roundCounter);
         const computerSelection = computerPlay();
 
         const playRoundResults = playRound(playerSelection, computerSelection);
-
-        // In case of spelling mistake, it will log the error message and stop the program:
-       if (playRoundResults.playerScore === undefined) {
-        console.log(playRoundResults);
-        // return;
-        alert('Please check your spelling and play again!')
-        game();
-        return
-       }
         
         playerTotalScore += playRoundResults.playerScore;
         computerTotalScore += playRoundResults.computerScore;
