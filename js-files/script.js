@@ -1,16 +1,3 @@
-const gameButtons  = document.querySelectorAll('button.gameButton');
-const allDivs = document.querySelectorAll('div.disappear');
-const computerSelectionDiv = document.getElementById('computer');
-const userSelectionDiv = document.getElementById('user');
-const totalScore = document.getElementById('totalScore');
-const resetButton = document.getElementById('reset');
-const roundDiv = document.getElementById('round');
-
-// variables to be manipulated in the game() function.
-let playerTotalScore = 0;
-let computerTotalScore = 0;
-
-// Generate computer selection:
 const computerPlay = () => {
     const randomNumber = Math.round(Math.random()*30);
 
@@ -26,7 +13,12 @@ const computerPlay = () => {
 
 };
 
-// Function to figure out the winner of one round
+const humanPlayerInput = (counter) => {
+    input = prompt(`Round ${counter}: Enter your selection!`).trim();
+
+    return input;
+};
+
 const playRound  = (playerSelection, computerSelection) => {
     const player = playerSelection.toLowerCase();
     const computer = computerSelection.toLowerCase();
@@ -99,26 +91,27 @@ const playRound  = (playerSelection, computerSelection) => {
   
 };
 
-// Function to figure out the winner of the whole game so far
-const game = (userInput) => {
 
-    const playerSelection= userInput;
-    const computerSelection = computerPlay();
+const game = () => {
+    let playerTotalScore = 0;
+    let computerTotalScore = 0;
+    let roundCounter = 0;
 
-    const playRoundResults = playRound(playerSelection, computerSelection);
-    
-    playerTotalScore += playRoundResults.playerScore;
-    computerTotalScore += playRoundResults.computerScore;
+    for (let i = 0 ; i < 5 ; i++) {
+        roundCounter++
+        const playerSelection = humanPlayerInput(roundCounter);
+        const computerSelection = computerPlay();
 
-    console.log(playRoundResults.messagePlayerSelection)
-    console.log(playRoundResults.messageComputerSelection)
-    console.log(playRoundResults.messageRoundResult)
-    console.log('---------------------');
+        const playRoundResults = playRound(playerSelection, computerSelection);
+        
+        playerTotalScore += playRoundResults.playerScore;
+        computerTotalScore += playRoundResults.computerScore;
 
-    displayContent(computerSelectionDiv, playRoundResults.messageComputerSelection);
-    displayContent(userSelectionDiv, playRoundResults.messagePlayerSelection);
-    displayContent(roundResults, playRoundResults.messageRoundResult);
-
+        console.log(playRoundResults.messagePlayerSelection)
+        console.log(playRoundResults.messageComputerSelection)
+        console.log(playRoundResults.messageRoundResult)
+        console.log('---------------------');
+    }
 
     const winner = playerTotalScore>computerTotalScore? 'You!' : 'Computer!';
     const tie = playerTotalScore===computerTotalScore? true : false;
@@ -128,63 +121,7 @@ const game = (userInput) => {
     
     console.log(finalScoresMessage);
     tie? console.log('It\'s a Tie!') : console.log(finalWinner);
-
-    const finalScoreMessageObject = {
-        finalScoresMessage: finalScoresMessage,
-        finalWinnerMessage: tie? 'It\'s a Tie!' : finalWinner,
-    }
-
-    displayContent(totalScore, finalScoreMessageObject);    
 };
 
-// Function to display content on the browser
-const displayContent = (element, content) => {
-    if (element.firstChild) {
-        element.removeChild(element.firstChild);
-    };
-    if (typeof content !== 'object') {
-        const elementContentDisplay = document.createElement('p');
-        elementContentDisplay.textContent = `${content}`;
-        element.appendChild(elementContentDisplay);
-
-    } else {
-        const elementContentDisplayUL = document.createElement('ul');
-        element.appendChild(elementContentDisplayUL);
-        for (const property in content) {
-            const listItem = document.createElement('li');
-            const listText = document.createTextNode(content[property]);
-            listItem.appendChild(listText);
-            elementContentDisplayUL.appendChild(listItem);
-        }
-    }
-};
-
-// Function to reset everything
-const resetGame = () =>{
-    for (const div of allDivs) {
-        div.classList.add('disappear');
-    };
-    resetButton.classList.add('disappear');
-
-    playerTotalScore = 0;
-    computerTotalScore = 0;
-
-    computerSelectionDiv.innerHTML = '<span>Instructions:</span>'
-    userSelectionDiv.textContent = 'Start playing by clicking on either Rock, Paper, or Scissors.';
-}
-
-
-// Event Listeners:
-for (const gameBtn of gameButtons) {
-    gameBtn.addEventListener('click', ()=> {
-        for (const div of allDivs) {
-            div.classList.remove('disappear');
-        };
-        resetButton.classList.remove('disappear');
-        game(gameBtn.id);
-
-    });
-};
-
-resetButton.addEventListener('click', resetGame);
+game();
 
